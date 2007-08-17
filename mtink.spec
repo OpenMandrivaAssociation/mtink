@@ -19,8 +19,8 @@ BuildRequires:	gtk2-devel
 BuildRequires:	lesstif-devel
 BuildRequires:	libgmp-devel
 BuildRequires:	libijs-devel
-BuildRequires:	libjbig-devel
-BuildRequires:	liblcms-devel
+BuildRequires:	jbig-devel
+BuildRequires:	lcms-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libusb-devel
 BuildRequires:	xpm-devel
