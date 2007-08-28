@@ -134,7 +134,6 @@ EOF
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-mtink.desktop << EOF
 [Desktop Entry]
-Encoding=UTF-8
 Name=Mtink - Epson Inkjet Printer Tools
 Comment=Epson inkjet printer maintenance (Head cleaning and alignment, ink level display, cartridge change, ...)
 Exec=%{_bindir}/mtink
