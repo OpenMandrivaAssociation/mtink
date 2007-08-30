@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.14
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPL
 Group:		System/Printing
 URL:		http://xwtools.automatix.de/files/
@@ -26,8 +26,8 @@ BuildRequires:	libusb-devel
 BuildRequires:	xpm-devel
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
-Conflicts:	printer-utils-2006 printer-utils-2007
-Conflicts:	cups-drivers-2006 cups-drivers-2007
+Conflicts:	printer-utils = 2007
+Conflicts:	cups-drivers = 2007
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
