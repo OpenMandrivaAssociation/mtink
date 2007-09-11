@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.14
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	GPL
 Group:		System/Printing
 URL:		http://xwtools.automatix.de/files/
@@ -150,9 +150,13 @@ EOF
 
 %post
 %_post_service mtinkd
+if [ "$1" -eq "1" ]; then
+    # On fresh installs, disable mtinkd on boot time
+    chkconfig mtinkd off
+fi
 # Restart the mtinkd when it is running, but do not activate it by
 # default. It blocks the ports for non-Epson devices.
-if [ "$1" -ne "1" ]; then
+if [ "$1" -eq "2" ]; then
     # On update
     service mtinkd condrestart > /dev/null 2>/dev/null || :
 fi
