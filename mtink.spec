@@ -28,6 +28,7 @@ Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Conflicts:	printer-utils = 2007
 Conflicts:	cups-drivers = 2007
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Mtink is a status monitor which allow to get the remaining ink quantity,
