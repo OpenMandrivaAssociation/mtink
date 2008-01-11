@@ -105,29 +105,6 @@ install -m 644 printutils.png %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
 # Menu entries
 
 %if %mdkversion <= 200700
-mkdir -p %{buildroot}%{_menudir}
-cat <<EOF > %{buildroot}%{_menudir}/printer-utils
-?package(printer-utils): \
-needs=X11 \
-section=Configuration/Printing \
-title="Mtink - Epson Inkjet Printer Tools" \
-longtitle="Epson inkjet printer maintenance (Head cleaning and alignment, ink level display, cartridge change, ...)" \
-command="%{_bindir}/mtink" \
-%if %mdkversion == 200700
-xdg=true \
-%endif
-icon="/usr/share/icons/locolor/16x16/apps/printutils.png" \
-?package(printer-utils): \
-needs=X11 \
-section=Applications/Monitoring \
-title="Mtink - Epson Inkjet Printer Tools" \
-longtitle="Epson inkjet printer maintenance (Head cleaning and alignment, ink level display, cartridge change, ...)" \
-command="%{_bindir}/mtink" \
-%if %mdkversion == 200700
-xdg=true \
-%endif
-icon="/usr/share/icons/locolor/16x16/apps/printutils.png"
-EOF
 %endif
 
 %if %mdkversion >= 200700
