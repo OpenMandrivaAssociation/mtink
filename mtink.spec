@@ -76,7 +76,7 @@ install -d %{buildroot}%{_bindir}
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{_libdir}/gimp/2.0/plug-ins
 install -d %{buildroot}%{_prefix}/lib/cups/backend
-install -d %{buildroot}%{_localstatedir}/mtink
+install -d %{buildroot}%{_localstatedir}/lib/mtink
 install -d %{buildroot}%{_datadir}/mtink
 install -d %{buildroot}/var/run/mtink
 
@@ -179,7 +179,7 @@ rm -rf %{buildroot}
 %{_datadir}/applications/mandriva-mtink.desktop
 %endif
 %{_datadir}/icons/locolor/16x16/apps/printutils.png
-%attr(0750,lp,sys) %dir %{_localstatedir}/mtink
+%attr(0750,lp,sys) %dir %{_localstatedir}/lib/mtink
 %attr(0750,lp,sys) %dir /var/run/mtink
 %attr(0755,root,root) %dir %{_datadir}/mtink
 %attr(0644,root,root) %{_datadir}/mtink/*
