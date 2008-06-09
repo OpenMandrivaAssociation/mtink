@@ -104,10 +104,6 @@ mkdir -p %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
 install -m 644 printutils.png %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
 # Menu entries
 
-%if %mdkversion <= 200700
-%endif
-
-%if %mdkversion >= 200700
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-mtink.desktop << EOF
 [Desktop Entry]
@@ -123,7 +119,6 @@ Categories=System;Monitor;
 Categories=X-MandrivaLinux-System-Configuration-Printing;Settings;HardwareSettings;X-MandrivaLinux-System-Monitoring;System;Monitor;
 %endif
 EOF
-%endif
 
 %post
 %_post_service mtinkd
@@ -175,9 +170,7 @@ rm -rf %{buildroot}
 %attr(6755,root,sys) %{_bindir}/ttink
 %attr(2755,lp,sys) %{_libdir}/gimp/2.0/plug-ins/gimp-mtink
 
-%if %mdkversion >= 200700
 %{_datadir}/applications/mandriva-mtink.desktop
-%endif
 %{_datadir}/icons/locolor/16x16/apps/printutils.png
 %attr(0750,lp,sys) %dir %{_localstatedir}/lib/mtink
 %attr(0750,lp,sys) %dir /var/run/mtink
