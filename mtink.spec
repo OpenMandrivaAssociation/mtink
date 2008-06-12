@@ -132,7 +132,9 @@ if [ "$1" -eq "2" ]; then
     # On update
     service mtinkd condrestart > /dev/null 2>/dev/null || :
 fi
+%if %mdkversion < 200900
 %update_menus
+%endif
 
 %preun
 #Stop mtinkd when uninstalling printer-filters
@@ -143,7 +145,9 @@ if [ "$1" -ge "1" ]; then
     # On update
     /sbin/service mtinkd condrestart >/dev/null 2>&1
 fi
+%if %mdkversion < 200900
 %clean_menus
+%endif
 
 %triggerin -n mtink -- printer-utils-2007
 mtinkpid="`pidof mtink`"
