@@ -115,8 +115,8 @@ convert %SOURCE4 -resize 48x48 %buildroot/%{_liconsdir}/%name.png
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-mtink.desktop << EOF
 [Desktop Entry]
-Name=Mtink - Epson Inkjet Printer Tools
-Comment=Epson inkjet printer maintenance (Head cleaning and alignment, ink level display, cartridge change, ...)
+Name=Epson Inkjet Printer Manager
+Comment=Alignment, ink level, cartridge maintenance
 Exec=%{_bindir}/mtink
 Icon=printutils
 Terminal=false
