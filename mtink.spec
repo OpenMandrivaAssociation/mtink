@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.14
-Release:	%mkrel 11
+Release:	%mkrel 12
 License:	GPL
 Group:		System/Printing
 URL:		http://xwtools.automatix.de/files/
@@ -9,6 +9,7 @@ Source0:	http://xwtools.automatix.de/files/%{name}-%{version}.tar.gz
 Source1:	mtinkd.init
 Source2:	mtinkd.sysconfig
 Source3:	printutils.png
+Source4:	micon.gif
 # mtink - Do not request koi8-ru, but koi8-r instead. Fixes mdv#25315
 Patch0:		mtink-1.0.14-ru_font.patch
 Patch1:		mtink-fhs_fixes.diff
@@ -98,12 +99,19 @@ install -m0755 gimp-mtink %{buildroot}%{_libdir}/gimp/2.0/plug-ins/
 # Documentation
 cp -ax etc/readme README.mtinkd.startup
 
-# Menu entries for printer-utils package
 # Menu icon
+# Menu entries for printer-utils package
 mkdir -p %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
 install -m 644 printutils.png %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
-# Menu entries
+# mtink icon
+mkdir -p %buildroot/%{_miconsdir}
+mkdir -p %buildroot/%{_iconsdir}
+mkdir -p %buildroot/%{_liconsdir}
+convert %SOURCE4 -resize 16x16 %buildroot/%{_miconsdir}/%name.png
+convert %SOURCE4 -resize 32x32 %buildroot/%{_iconsdir}/%name.png
+convert %SOURCE4 -resize 48x48 %buildroot/%{_liconsdir}/%name.png
 
+# Menu entries
 mkdir -p %{buildroot}%{_datadir}/applications
 cat > %{buildroot}%{_datadir}/applications/mandriva-mtink.desktop << EOF
 [Desktop Entry]
@@ -176,6 +184,9 @@ rm -rf %{buildroot}
 
 %{_datadir}/applications/mandriva-mtink.desktop
 %{_datadir}/icons/locolor/16x16/apps/printutils.png
+%{_miconsdir}/%name.png
+%{_iconsdir}/%name.png
+%{_liconsdir}/%name.png
 %attr(0750,lp,sys) %dir %{_localstatedir}/lib/mtink
 %attr(0750,lp,sys) %dir /var/run/mtink
 %attr(0755,root,root) %dir %{_datadir}/mtink
