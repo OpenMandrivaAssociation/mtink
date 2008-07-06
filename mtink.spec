@@ -17,11 +17,12 @@ Patch2:		mtink-path_to_printer.desc.diff
 BuildRequires:	gimp-devel
 BuildRequires:	glib-devel
 BuildRequires:	gtk2-devel
+BuildRequires:	imagemagick
+BuildRequires:	jbig-devel
+BuildRequires:	lcms-devel
 BuildRequires:	lesstif-devel
 BuildRequires:	libgmp-devel
 BuildRequires:	libijs-devel
-BuildRequires:	jbig-devel
-BuildRequires:	lcms-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libusb-devel
 BuildRequires:	xpm-devel
