@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.14
-Release:	%mkrel 13
+Release:	%mkrel 14
 License:	GPL
 Group:		System/Printing
 URL:		http://xwtools.automatix.de/files/
@@ -102,8 +102,8 @@ cp -ax etc/readme README.mtinkd.startup
 
 # Menu icon
 # Menu entries for printer-utils package
-mkdir -p %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
-install -m 644 printutils.png %{buildroot}%{_datadir}/icons/locolor/16x16/apps/
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/
+install -m 644 printutils.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/
 # mtink icon
 mkdir -p %buildroot/%{_miconsdir}
 mkdir -p %buildroot/%{_iconsdir}
@@ -184,7 +184,7 @@ rm -rf %{buildroot}
 %attr(2755,lp,sys) %{_libdir}/gimp/2.0/plug-ins/gimp-mtink
 
 %{_datadir}/applications/mandriva-mtink.desktop
-%{_datadir}/icons/locolor/16x16/apps/printutils.png
+%{_datadir}/icons/hicolor/16x16/apps/printutils.png
 %{_miconsdir}/%name.png
 %{_iconsdir}/%name.png
 %{_liconsdir}/%name.png
