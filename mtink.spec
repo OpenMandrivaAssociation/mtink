@@ -15,7 +15,7 @@ Patch0:		mtink-1.0.14-ru_font.patch
 Patch1:		mtink-fhs_fixes.diff
 Patch2:		mtink-path_to_printer.desc.diff
 BuildRequires:	gimp-devel
-BuildRequires:	glib-devel
+BuildRequires:	glib2-devel
 BuildRequires:	gtk2-devel
 BuildRequires:	imagemagick
 BuildRequires:	jbig-devel
