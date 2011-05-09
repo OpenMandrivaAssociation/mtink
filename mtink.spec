@@ -15,17 +15,10 @@ Patch0:		mtink-1.0.14-ru_font.patch
 Patch1:		mtink-fhs_fixes.diff
 Patch2:		mtink-path_to_printer.desc.diff
 BuildRequires:	gimp-devel
-BuildRequires:	glib2-devel
-BuildRequires:	gtk2-devel
-BuildRequires:	imagemagick
-BuildRequires:	jbig-devel
-BuildRequires:	lcms-devel
+BuildRequires:	libx11-devel
 BuildRequires:	lesstif-devel
-BuildRequires:	libgmp-devel
-BuildRequires:	libijs-devel
-BuildRequires:	libtiff-devel
-BuildRequires:	libusb-devel
-BuildRequires:	xpm-devel
+BuildRequires:	libxt-devel
+BuildRequires:	imagemagick
 Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Conflicts:	printer-utils = 2007
@@ -57,8 +50,7 @@ perl -p -i -e 's|(''/usr/)lib('')|$1%{_lib}$2|g' checkMotifVersion.sh
 perl -pi -e "s|^DBG = .*|DBG = $CFLAGS|g" Makefile.ORG
 
 ./Configure --no-suid --prefix /usr
-
-%make
+%make CC="gcc %ldflags"
 
 # Fix some small bugs
 #perl -p -i -e "s/START_LEVEL=S99mtink/START_LEVEL=S59mtink/" etc/installInitScript.sh
@@ -122,11 +114,7 @@ Exec=%{_bindir}/mtink
 Icon=printutils
 Terminal=false
 Type=Application
-%if %mdkversion >= 200800
 Categories=System;Monitor;
-%else
-Categories=X-MandrivaLinux-System-Configuration-Printing;Settings;HardwareSettings;X-MandrivaLinux-System-Monitoring;System;Monitor;
-%endif
 EOF
 
 %post
