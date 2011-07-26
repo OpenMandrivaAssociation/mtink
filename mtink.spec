@@ -10,6 +10,7 @@ Source1:	mtinkd.init
 Source2:	mtinkd.sysconfig
 Source3:	printutils.png
 Source4:	micon.gif
+Source5:        epson.png
 # mtink - Do not request koi8-ru, but koi8-r instead. Fixes mdv#25315
 Patch0:		mtink-1.0.14-ru_font.patch
 Patch1:		mtink-fhs_fixes.diff
@@ -96,6 +97,7 @@ cp -ax etc/readme README.mtinkd.startup
 # Menu entries for printer-utils package
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/
 install -m 644 printutils.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/
+install -m 644 %{SOURCE5} %{buildroot}%{_datadir}/icons/
 # mtink icon
 mkdir -p %buildroot/%{_miconsdir}
 mkdir -p %buildroot/%{_iconsdir}
@@ -111,7 +113,7 @@ cat > %{buildroot}%{_datadir}/applications/mandriva-mtink.desktop << EOF
 Name=Epson Inkjet Printer Manager
 Comment=Alignment, ink level, cartridge maintenance
 Exec=%{_bindir}/mtink
-Icon=printutils
+Icon=epson
 Terminal=false
 Type=Application
 Categories=System;Monitor;
@@ -176,6 +178,7 @@ rm -rf %{buildroot}
 %{_miconsdir}/%name.png
 %{_iconsdir}/%name.png
 %{_liconsdir}/%name.png
+%{_iconsdir}/epson.png
 %attr(0750,lp,sys) %dir %{_localstatedir}/lib/mtink
 %attr(0750,lp,sys) %dir /var/run/mtink
 %attr(0755,root,root) %dir %{_datadir}/mtink
