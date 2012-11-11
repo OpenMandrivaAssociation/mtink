@@ -1,0 +1,32 @@
+diff -Naur mtink-1.0.14/mainSrc/resource.c mtink-1.0.14.oden/mainSrc/resource.c
+--- mtink-1.0.14/mainSrc/resource.c	2006-06-02 10:01:39.000000000 +0200
++++ mtink-1.0.14.oden/mainSrc/resource.c	2007-08-09 13:33:16.000000000 +0200
+@@ -2809,9 +2809,9 @@
+ 
+ */
+ #endif
+-   "EpsonUtil.Ru*title_LB.fontList: *-urw palladio l-bold-r-normal-*-*-*-*-*-*-*-koi8-ru",
+-   "EpsonUtil.Ru*fontList:          *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-ru",
+-   "*Ru.tooltip_label.fontList:     *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-ru",
++   "EpsonUtil.Ru*title_LB.fontList: *-urw palladio l-bold-r-normal-*-*-*-*-*-*-*-koi8-r",
++   "EpsonUtil.Ru*fontList:          *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-r",
++   "*Ru.tooltip_label.fontList:     *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-r",
+    "EpsonUtil.Ru*unknown: не известен",
+ 
+ #if 0
+diff -Naur mtink-1.0.14/utils/Mtink.Ru mtink-1.0.14.oden/utils/Mtink.Ru
+--- mtink-1.0.14/utils/Mtink.Ru	2006-06-02 10:01:10.000000000 +0200
++++ mtink-1.0.14.oden/utils/Mtink.Ru	2007-08-09 13:33:16.000000000 +0200
+@@ -33,9 +33,9 @@
+ ! umgebrochen. Это sollte vor allem bei mehrzeiligen Texten die uebersicht
+ ! bezueglich Formatierung verbessern.
+ 
+-EpsonUtil.Ru*title_LB.fontList: *-urw palladio l-bold-r-normal-*-*-*-*-*-*-*-koi8-ru
+-EpsonUtil.Ru*fontList:          *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-ru
+-*Ru.tooltip_label.fontList:     *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-ru
++EpsonUtil.Ru*title_LB.fontList: *-urw palladio l-bold-r-normal-*-*-*-*-*-*-*-koi8-r
++EpsonUtil.Ru*fontList:          *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-r
++*Ru.tooltip_label.fontList:     *-urw palladio l-*-r-normal-*-*-*-*-*-*-*-koi8-r
+ EpsonUtil.Ru*unknown: не известен
+ 
+ ! Die Version wird beim Erstellen der C-Datei ersetzt.

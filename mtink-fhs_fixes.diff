@@ -1,0 +1,347 @@
+diff -Naur mtink-1.0.14/etc/mtink-cups mtink-1.0.14.oden/etc/mtink-cups
+--- mtink-1.0.14/etc/mtink-cups	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/etc/mtink-cups	2007-08-09 15:32:15.000000000 +0200
+@@ -84,7 +84,7 @@
+ ME=`basename $0`
+ 
+ if [ -z "$*" ]; then
+-	for DEV in `ls -1 /var/mtink 2>/dev/null` ; do
++	for DEV in `ls -1 /var/lib/mtink 2>/dev/null` ; do
+ 		DESC=`basename $DEV`
+ 		if [ $? -eq 0 ]; then 
+ 			echo direct $ME:/$DESC \"Epson Stylus $DESC\" \"MTINK $DESC\"
+@@ -125,7 +125,7 @@
+ touch /var/lock/mtink.$SENDTO 
+ 
+ ### process the input stream
+-cat $FILE > /var/mtink/$SENDTO
++cat $FILE > /var/lib/mtink/$SENDTO
+ STAT=$?
+ 
+ ### wait a little bit so the last data are proccessed
+diff -Naur mtink-1.0.14/html/mtink.De.html mtink-1.0.14.oden/html/mtink.De.html
+--- mtink-1.0.14/html/mtink.De.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/mtink.De.html	2007-08-09 15:33:09.000000000 +0200
+@@ -419,7 +419,7 @@
+ 
+ <h3><a name="Icon">Das MiniFenster</h3>
+ Diese Fenster wird nur aufgeschaltet wenn der Server <b>mtinkd</b> l&auml;uft oder
+-die Rc-Datei <i>.mtinkrc</i> deb Pfad "/var/mtink/..." beinhaltet.<br>
++die Rc-Datei <i>.mtinkrc</i> deb Pfad "/var/lib/mtink/..." beinhaltet.<br>
+ <img src="micon.gif">
+ <p>
+ Das Fenster kann 2 Fareben annehmen, Gr&uuml;n (alles klar), Orange
+diff -Naur mtink-1.0.14/html/mtinkd.html mtink-1.0.14.oden/html/mtinkd.html
+--- mtink-1.0.14/html/mtinkd.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/mtinkd.html	2007-08-09 15:33:03.000000000 +0200
+@@ -161,7 +161,7 @@
+ purpose and you will have to reconfigure the print service accordingly.
+ <br>
+ <br>
+-The named pipes are all installed under the directory /var/mtink. The
++The named pipes are all installed under the directory /var/lib/mtink. The
+ file name is derived from the device file name and path. <br>
+ </a>
+ <table cellpadding="2" cellspacing="2" border="0" width="100%">
+@@ -186,7 +186,7 @@
+           <tr>
+             <td valign="top">/dev/lp0<br>
+             </td>
+-            <td valign="top">/var/mtink/lp0<br>
++            <td valign="top">/var/lib/mtink/lp0<br>
+             </td>
+             <td valign="top"><br>
+             </td>
+@@ -194,7 +194,7 @@
+           <tr>
+             <td valign="top">/dev/usb/lp0<br>
+             </td>
+-            <td valign="top">/var/mtink/usb_lp0<br>
++            <td valign="top">/var/lib/mtink/usb_lp0<br>
+             </td>
+             <td valign="top">The "/" is replaced by a "_"<br>
+             </td>
+@@ -202,7 +202,7 @@
+           <tr>
+             <td valign="top">/dev/printer/0<br>
+             </td>
+-            <td valign="top">/var/mtink/printer_0<br>
++            <td valign="top">/var/lib/mtink/printer_0<br>
+             </td>
+             <td valign="top"><br>
+             </td>
+@@ -226,7 +226,7 @@
+           <tr>
+             <td valign="top">Photo 890<br>
+             </td>
+-            <td valign="top">/var/mtink/Photo_890<br>
++            <td valign="top">/var/lib/mtink/Photo_890<br>
+             </td>
+             <td valign="top">The " " are replaced by "_" characters<br>
+             </td>
+@@ -235,24 +235,24 @@
+       </table>
+       <br>
+       <b><i>If you configure your print systeme you must choose the
+-file /var/mtink/xxx.<br>
++file /var/lib/mtink/xxx.<br>
+ If you don't use cups you must make sure that the print system will not
+ write at the same time on the named pipe !</i></b>
+       <h4><a name="CallTtink">Call of ttink</a></h4>
+       <a name="CallTtink"> Normally you have to call ttink with for
+ example the option -d /dev/lp0. If you use the mtinkd server you must
+-launch ttink with the option -d /var/mtink/lp0 <br>
++launch ttink with the option -d /var/lib/mtink/lp0 <br>
+       </a>
+       <h4><a name="CallMtink">Call of mtink</a></h4>
+       <a name="CallMtink"> Mtink can be called as usual. If the choosed
+-device is locked, mtink will allow you to choose the /var/mtink/* files.<br>
++device is locked, mtink will allow you to choose the /var/lib/mtink/* files.<br>
+       </a>
+       <h4><a name="Theory">Theory of operation</a></h4>
+       <a name="Theory"> <b>Mtinkd</b> and <b>mtink</b> / <b>ttink</b>
+ communicate via shared memory. The shared &nbsp;memory will be created
+ by the server process and this memory has a key which is calculated
+-from the file name <i>/var/mtink/&lt;name&gt;</i>. The print jobs are
+-to be send to the file <i>/var/mtink/&lt;name&gt;.</i> If datas are
++from the file name <i>/var/lib/mtink/&lt;name&gt;</i>. The print jobs are
++to be send to the file <i>/var/lib/mtink/&lt;name&gt;.</i> If datas are
+ recognized by <b>mtinkd</b> on this file, these datas are packed into
+ the <b>D4</b> protocol and sent to the printer via a <i>data channel</i>.
+ Queries or commands from <b>mtink</b> / <b>ttink</b> are written into
+diff -Naur mtink-1.0.14/html/mtinkd.Hu.html mtink-1.0.14.oden/html/mtinkd.Hu.html
+--- mtink-1.0.14/html/mtinkd.Hu.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/mtinkd.Hu.html	2007-08-09 15:32:39.000000000 +0200
+@@ -188,7 +188,7 @@
+ nem tudja egyidejûleg egyn&eacute;l t&ouml;bb folyamatra haszn&aacute;lni.
+ Az mtink ez&eacute;rt tartalmaz egy cs&ouml;vet, &eacute;s &uacute;jra
+ konfigur&aacute;lhatja a nyomtat&aacute;si szolg&aacute;ltat&aacute;st
+-ennek megfelelõen. <BR><BR>A nevezett csõ a /var/mtink k&ouml;nyvt&aacute;r
++ennek megfelelõen. <BR><BR>A nevezett csõ a /var/lib/mtink k&ouml;nyvt&aacute;r
+ alatt van telep&iacute;tve. A f&aacute;jl neve az eszk&ouml;z f&aacute;jl
+ n&eacute;vbõl &eacute;s el&eacute;r&eacute;si &uacute;tvonalb&oacute;l
+ van eredeztetve. 
+@@ -222,7 +222,7 @@
+ 			<P>/dev/lp0</P>
+ 		</TD>
+ 		<TD WIDTH=1053>
+-			<P>/var/mtink/lp0</P>
++			<P>/var/lib/mtink/lp0</P>
+ 		</TD>
+ 		<TD WIDTH=2110>
+ 			<P><BR>
+@@ -234,7 +234,7 @@
+ 			<P>/dev/usb/lp0</P>
+ 		</TD>
+ 		<TD WIDTH=1053>
+-			<P>/var/mtink/usb_lp0</P>
++			<P>/var/lib/mtink/usb_lp0</P>
+ 		</TD>
+ 		<TD WIDTH=2110>
+ 			<P>The &quot;/&quot; is replaced by a &quot;_&quot;</P>
+@@ -245,7 +245,7 @@
+ 			<P>/dev/printer/0</P>
+ 		</TD>
+ 		<TD WIDTH=1053>
+-			<P>/var/mtink/printer_0</P>
++			<P>/var/lib/mtink/printer_0</P>
+ 		</TD>
+ 		<TD WIDTH=2110>
+ 			<P><BR>
+@@ -284,7 +284,7 @@
+ 			<P>Photo 890</P>
+ 		</TD>
+ 		<TD WIDTH=1053>
+-			<P>/var/mtink/Photo_890</P>
++			<P>/var/lib/mtink/Photo_890</P>
+ 		</TD>
+ 		<TD WIDTH=2110>
+ 			<P>The &quot; &quot; are replaced by &quot;_&quot; characters</P>
+@@ -294,26 +294,26 @@
+ 		<TD COLSPAN=5 WIDTH=4232 VALIGN=TOP>
+ 			<P><FONT SIZE=3><BR><B><I>Ha a saj&aacute;t nyomtat&aacute;si
+ 			rendszer&eacute;t konfigur&aacute;lja, v&aacute;lassza a
+-			/var/mtink/xxx f&aacute;jlt.<BR>Ha nem haszn&aacute;l cups-ot,
++			/var/lib/mtink/xxx f&aacute;jlt.<BR>Ha nem haszn&aacute;l cups-ot,
+ 			gyõzõdj&eacute;k meg r&oacute;la, hogy a nyomtat&aacute;si
+ 			rendszert ne &iacute;rja &aacute;t egyidejûleg a nevezett cs&ouml;v&ouml;n!</I></B></FONT></P>
+ 			<P><A NAME="CallTtink"></A><FONT SIZE=3>A ttink h&iacute;v&aacute;sa</FONT></P>
+ 			<P><FONT SIZE=3>Rendes k&ouml;r&uuml;lm&eacute;nyek k&ouml;z&ouml;tt
+ 			a ttink-et p&eacute;ld&aacute;ul a -d /dev/lp0 opci&oacute;val
+ 			h&iacute;vhatja. Ha az mtinkd szervert haszn&aacute;lja, a
+-			ttink-et a -d /var/mtink/lp0 opci&oacute;val kell ind&iacute;tani.</FONT></P>
++			ttink-et a -d /var/lib/mtink/lp0 opci&oacute;val kell ind&iacute;tani.</FONT></P>
+ 			<H4><A NAME="CallMtink"></A><FONT SIZE=3>Az mtink h&iacute;v&aacute;sa</FONT></H4>
+ 			<P><FONT SIZE=3>Az mtink-et a szok&aacute;sos m&oacute;don
+ 			h&iacute;vhatja. Ha a kiv&aacute;lasztott eszk&ouml;z z&aacute;rolt,
+-			az mtink engedi a /var/mtink/* f&aacute;jlok kiv&aacute;laszt&aacute;s&aacute;t..</FONT></P>
++			az mtink engedi a /var/lib/mtink/* f&aacute;jlok kiv&aacute;laszt&aacute;s&aacute;t..</FONT></P>
+ 			<H4><A NAME="Theory"></A><FONT SIZE=3>Mûveletelm&eacute;let</FONT></H4>
+ 			<P><FONT SIZE=3><B>Mtinkd</B> &eacute;s <B>mtink</B> / <B>ttink</B>
+ 			osztott mem&oacute;ri&aacute;n &aacute;t kommunik&aacute;lnak. Az
+ 			osztott &nbsp;mem&oacute;ria l&eacute;trej&ouml;n a szerver
+ 			folyamatn&aacute;l &eacute;s ennek a mem&oacute;ri&aacute;nak van
+-			egy kulcsa, ami a <I>/var/mtink/&lt;name&gt; </I>f&aacute;jlb&oacute;l
++			egy kulcsa, ami a <I>/var/lib/mtink/&lt;name&gt; </I>f&aacute;jlb&oacute;l
+ 			van kalkul&aacute;lva. A nyomtat&aacute;si munk&aacute;k a
+-			<I>/var/mtink/&lt;name&gt; </I>f&aacute;jlhoz vannak k&uuml;ldve<I>.</I>
++			<I>/var/lib/mtink/&lt;name&gt; </I>f&aacute;jlhoz vannak k&uuml;ldve<I>.</I>
+ 			Ha az adatokat felismeri az <B>mtinkd</B> ebben a f&aacute;jlban,
+ 			ezek az adatok a <B>D4</B> protokollba vannak csomagolva &eacute;s
+ 			a nyomtat&oacute;hoz egy <I>adatcsatorn&aacute;n </I>&aacute;t
+diff -Naur mtink-1.0.14/html/mtink.html mtink-1.0.14.oden/html/mtink.html
+--- mtink-1.0.14/html/mtink.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/mtink.html	2007-08-09 15:33:18.000000000 +0200
+@@ -326,7 +326,7 @@
+ 
+ <h3><a name="Icon">The mini window</h3>
+ This window will only be displayed if the server <b>mtinkd</b> is running or
+-the rc file <i>.mtinkrc</i> contain the path "/var/mtink/...".<br>
++the rc file <i>.mtinkrc</i> contain the path "/var/lib/mtink/...".<br>
+ <img src="micon.gif"><p>
+ This little window will be displayed with a green (All is OK), orange
+ (Ink quantity less as 10 %) or red background (Printer not available or 
+diff -Naur mtink-1.0.14/html/mtink.Hu.html mtink-1.0.14.oden/html/mtink.Hu.html
+--- mtink-1.0.14/html/mtink.Hu.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/mtink.Hu.html	2007-08-09 15:33:25.000000000 +0200
+@@ -364,7 +364,7 @@
+ fogja mutatni (nyomtat&oacute;modelltõl f&uuml;ggõen).</P>
+ <H3><A NAME="Icon"></A>A mini ablak</H3>
+ <P>Ez az ablak csak akkor l&aacute;that&oacute;, ha az<B> mtinkd</B>
+-szerver fut, vagy az rc file <I>.mtinkrc</I> a &quot;/var/mtink/...&quot;
++szerver fut, vagy az rc file <I>.mtinkrc</I> a &quot;/var/lib/mtink/...&quot;
+ el&eacute;r&eacute;si &uacute;tvonalat tartalmazza.<BR><IMG SRC="micon.gif" NAME="Grafika7" ALIGN=BOTTOM WIDTH=75 HEIGHT=38 BORDER=0></P>
+ <P>Ez a kis ablak z&ouml;ld sz&iacute;nû, ha minden rendben van,
+ narancs, ha a tintamennyis&eacute;g kevesebb, mint 10 %, vagy v&ouml;r&ouml;s
+diff -Naur mtink-1.0.14/html/OLVASS_EL mtink-1.0.14.oden/html/OLVASS_EL
+--- mtink-1.0.14/html/OLVASS_EL	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/OLVASS_EL	2007-08-09 15:32:10.000000000 +0200
+@@ -237,7 +237,7 @@
+ ezzel a szerverrel. Ha több nyomtató van csatlakoztatva az USB porthoz, a portot
+ nem fogja tudni használni mindig egyidejûleg. Az mtinkd felkutatja az usb portokat és
+ kimutatja, melyik nyomtató van csatlakoztatva. Ha egy nyomtatót megtalált, az mtinkd
+-felkínál egy csövet a nyomtató eléréséhez /var/mtink/<nyomtató_név>.
++felkínál egy csövet a nyomtató eléréséhez /var/lib/mtink/<nyomtató_név>.
+ 
+ Egy háttéralkalmazással is el van látva a cups-hoz. Egy EPSON C60 nyomtató
+ telepítéséhez ki kell adnia a következõ parancsot root-ként:
+diff -Naur mtink-1.0.14/html/README mtink-1.0.14.oden/html/README
+--- mtink-1.0.14/html/README	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/README	2007-08-09 15:31:54.000000000 +0200
+@@ -237,7 +237,7 @@
+ this server. If more printers are attached to the USB port, the port
+ used will not be every time the same. Mtinkd scan the usb ports and
+ detect which printer are attached. If a printer is found, mtinkd
+-offer a pipe for accessing the printer /var/mtink/<printer_name>.
++offer a pipe for accessing the printer /var/lib/mtink/<printer_name>.
+ 
+ A backend for cups is also provided. for installing an EPSON C60
+ printer you must issue the following command as root:
+diff -Naur mtink-1.0.14/html/ttink.html mtink-1.0.14.oden/html/ttink.html
+--- mtink-1.0.14/html/ttink.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/ttink.html	2007-08-09 15:33:30.000000000 +0200
+@@ -32,7 +32,7 @@
+ have to start the <a href="mtinkd.html"><b>mtinkd</b></a> daemon with the
+ corresponding option.<br>
+ <br>
+-The device file name is not for example /dev/lp0 or /dev/usb/lp0 but /var/mtink/lp0
++The device file name is not for example /dev/lp0 or /dev/usb/lp0 but /var/lib/mtink/lp0
+ e.g. var/mtink/usb_lp0.<br>
+ <br>
+ <h4>Bugs</h4>
+diff -Naur mtink-1.0.14/html/ttink.Hu.html mtink-1.0.14.oden/html/ttink.Hu.html
+--- mtink-1.0.14/html/ttink.Hu.html	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/html/ttink.Hu.html	2007-08-09 15:33:34.000000000 +0200
+@@ -43,7 +43,7 @@
+ az <A HREF="../../mtink/html/mtinkd.html"><B>mtinkd</B></A> d&eacute;mont
+ ind&iacute;thatja a megfelelõ opci&oacute;val.<BR><BR>Az eszk&ouml;zf&aacute;jl
+ neve p&eacute;ld&aacute;ul nem /dev/lp0 vagy /dev/usb/lp0 ellenben
+-p&eacute;ld&aacute;ul /var/mtink/lp0 vagy var/mtink/usb_lp0.</P>
++p&eacute;ld&aacute;ul /var/lib/mtink/lp0 vagy var/mtink/usb_lp0.</P>
+ <H4>Hib&aacute;k</H4>
+ <P>Val&oacute;sz&iacute;nûleg sok.</P>
+ <H4>L&aacute;sd m&eacute;g</H4>
+diff -Naur mtink-1.0.14/mainSrc/cfg1.c mtink-1.0.14.oden/mainSrc/cfg1.c
+--- mtink-1.0.16/mainSrc/cfg1.c.orig	2007-08-28 10:53:35.000000000 +0100
++++ mtink-1.0.16/mainSrc/cfg1.c	2009-05-03 13:54:16.118063832 +0100
+@@ -307,14 +307,14 @@
+       }
+    }
+    /* add entries found under /var/mtink */
+-   if ( (dir = opendir("/var/mtink")) )
++   if ( (dir = opendir("/var/lib/mtink")) )
+    {
+       while ( (ent = readdir(dir)) != NULL )
+       {
+          if ( ent->d_name[0] == '.' )
+             continue;
+-         fname = (char*)calloc(strlen("/var/mtink/")+ strlen(ent->d_name)+1,1);    
+-         sprintf(fname, "/var/mtink/%s", ent->d_name);
++         fname = (char*)calloc(strlen("/var/lib/mtink/")+ strlen(ent->d_name)+1,1);    
++         sprintf(fname, "/var/lib/mtink/%s", ent->d_name);
+          if (fileAccess(fname,  W_OK) == 0 )
+          {
+             deviceName[count++] = strdup(fname);
+diff -Naur mtink-1.0.14/mainSrc/usbHlp.h mtink-1.0.14.oden/mainSrc/usbHlp.h
+--- mtink-1.0.14/mainSrc/usbHlp.h	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/mainSrc/usbHlp.h	2007-08-09 15:32:27.000000000 +0200
+@@ -28,6 +28,6 @@
+ 
+ extern device_list_type devices[];
+ 
+-#define USB_PRT_DIR "/var/mtink"
++#define USB_PRT_DIR "/var/lib/mtink"
+ #define USB_PRT_NAME_PREFIX USB_PRT_DIR"/usb:"
+ #endif
+diff -Naur mtink-1.0.14/pyink/pyinkHTTPHandler.py mtink-1.0.14.oden/pyink/pyinkHTTPHandler.py
+--- mtink-1.0.14/pyink/pyinkHTTPHandler.py	2006-02-19 11:03:56.000000000 +0100
++++ mtink-1.0.14.oden/pyink/pyinkHTTPHandler.py	2007-08-09 15:33:44.000000000 +0200
+@@ -594,7 +594,7 @@
+         t1=res.cfgDevice
+         #print'ASK for device file'
+         # build a list of file device
+-        os.system('(ls -c /var/mtink/*;ls -cr /dev/lp*;ls -c /dev/usb/lp*) >deviceFiles 2>/dev/null')
++        os.system('(ls -c /var/lib/mtink/*;ls -cr /dev/lp*;ls -c /dev/usb/lp*) >deviceFiles 2>/dev/null')
+         st.write( '<html>\n'+\
+                   '<HEAD><meta http-equiv="Content-Type" content="text/html; charset=utf-8">\n'+\
+                   '</HEAD>\n'+\
+diff -Naur mtink-1.0.14/server/mtinkd.c mtink-1.0.14.oden/server/mtinkd.c
+--- mtink-1.0.14/server/mtinkd.c	2006-06-06 12:24:04.000000000 +0200
++++ mtink-1.0.14.oden/server/mtinkd.c	2007-08-09 15:32:22.000000000 +0200
+@@ -921,7 +921,7 @@
+    if ( type )
+    {
+       fifoName  = (char*)calloc(strlen(type)+ 20, 1);
+-      sprintf(fifoName, "/var/mtink/%s",type);
++      sprintf(fifoName, "/var/lib/mtink/%s",type);
+    }
+    else
+    {
+@@ -931,7 +931,7 @@
+             device = oldDevice;
+ #endif
+       fifoName = calloc(strlen(device)+ 7, 1);
+-      sprintf(fifoName, "/var/mtink/%s",device+5);
++      sprintf(fifoName, "/var/lib/mtink/%s",device+5);
+    }
+    
+    /* replace / with _ and also blancks */
+@@ -977,15 +977,15 @@
+    }
+ 
+    /* create our directory if not existing */
+-   if ( access("/var/mtink", O_RDONLY) == -1 )
++   if ( access("/var/lib/mtink", O_RDONLY) == -1 )
+    {
+       um = umask(0);
+-      if ( mkdir("/var/mtink", 0700) == -1 )
++      if ( mkdir("/var/lib/mtink", 0700) == -1 )
+       {
+          perror("mkdir ");
+          if ( debug )
+          {
+-            fprintf(stderr,"can't create directory /var/mtink\n");
++            fprintf(stderr,"can't create directory /var/lib/mtink\n");
+          }
+          exit(1);
+       }
