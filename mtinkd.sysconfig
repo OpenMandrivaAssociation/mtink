@@ -1,0 +1,11 @@
+# define the device file, adapt this
+#MTINKD_DEV_FILE=/dev/lp0
+MTINKD_DEV_FILE="-dev /dev/usb/lp0"
+
+# Special options, adapt this
+# add name of printer
+MTINKD_NAME=
+
+# use the first line for USB printers, the second for parallel port printers
+MTINKD_SPEC="-name $MTINKD_NAME -usbbase /dev/usb/lp"
+#MTINKD_SPEC="-name $MTINKD_NAME"

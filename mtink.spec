@@ -184,3 +184,101 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %dir %{_datadir}/mtink
 %attr(0644,root,root) %{_datadir}/mtink/*
 %attr(0755,root,root) %{_prefix}/lib/cups/backend/mtink
+
+
+%changelog
+* Tue Jul 26 2011 Alex Burmashev <burmashev@mandriva.org> 1.0.16-6mdv2011.0
++ Revision: 691761
+- spec fix
+- changed desktop file icon
+
+* Mon May 09 2011 Funda Wang <fwang@mandriva.org> 1.0.16-5
++ Revision: 672775
+- cleanup br
+
+  + Oden Eriksson <oeriksson@mandriva.com>
+    - mass rebuild
+
+* Fri Dec 03 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.16-4mdv2011.0
++ Revision: 606668
+- rebuild
+
+* Tue Mar 16 2010 Oden Eriksson <oeriksson@mandriva.com> 1.0.16-3mdv2010.1
++ Revision: 520917
+- fix deps
+- rebuilt for 2010.1
+- rebuild
+
+* Sun May 03 2009 Crispin Boylan <crisb@mandriva.org> 1.0.16-1mdv2010.0
++ Revision: 370984
+- New version
+  Rediff part of fhs patch
+
+* Sun Nov 02 2008 Olivier Blin <oblin@mandriva.com> 1.0.14-14mdv2009.1
++ Revision: 299307
+- install printutils icon in hicolor theme instead of locolor
+  (the later does not have an icon theme index)
+
+* Sun Jul 06 2008 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-13mdv2009.0
++ Revision: 232201
+- fix deps
+- rebuild
+
+  + Austin Acton <austin@mandriva.org>
+    - unify menu entry with HP, Z42
+    - add icon (bug #36900)
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - rebuild
+
+  + Pixel <pixel@mandriva.com>
+    - rpm filetriggers deprecates update_menus/update_scrollkeeper/update_mime_database/update_icon_cache/update_desktop_database/post_install_gconf_schemas
+    - adapt to %%_localstatedir now being /var instead of /var/lib (#22312)
+
+* Wed Jan 23 2008 Thierry Vignaud <tv@mandriva.org> 1.0.14-10mdv2008.1
++ Revision: 157257
+- rebuild with fixed %%serverbuild macro
+
+* Tue Jan 15 2008 Thierry Vignaud <tv@mandriva.org> 1.0.14-8mdv2008.1
++ Revision: 153268
+- rebuild
+- drop old menu
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Tue Sep 11 2007 Marcelo Ricardo Leitner <mrl@mandriva.com> 1.0.14-7mdv2008.0
++ Revision: 84522
+- Disable mtinkd on boot on fresh installs, as this was the default behavior
+  and it inpacts on other printers. Closes: #31086
+
+* Thu Aug 30 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-6mdv2008.0
++ Revision: 75348
+- fix deps (pixel)
+
+  + Thierry Vignaud <tv@mandriva.org>
+    - kill desktop-file-validate's 'warning: key "Encoding" in group "Desktop Entry" is deprecated'
+
+* Fri Aug 24 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-5mdv2008.0
++ Revision: 70863
+- fix deps
+
+* Fri Aug 17 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-4mdv2008.0
++ Revision: 65253
+- bump release
+- fix deps
+- use the new System/Printing RPM GROUP
+
+* Fri Aug 10 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-2mdv2008.0
++ Revision: 61095
+- rebuild
+
+* Fri Aug 10 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-1mdv2008.0
++ Revision: 60983
+- Import mtink
+
+
+
+* Thu Aug 09 2007 Oden Eriksson <oeriksson@mandriva.com> 1.0.14-1mdv2008.0
+- initial Mandriva package

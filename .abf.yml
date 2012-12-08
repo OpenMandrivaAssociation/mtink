@@ -1,7 +1,2 @@
 sources:
-  "epson.png:"	6e99bace770b24680cadc6ea67793a2d8ef93328
-  "micon.gif:"	f61522f83cbb4a0abed794f13f7cca3c490afdc4
-  "mtink-1.0.16.tar.gz:"	f838c746ab88297b5e01e347fa958a44d622ff86
-  "mtinkd.init:"	32416051b7dd656517fcf268ae5036aa706d43db
-  "mtinkd.sysconfig:"	ebefc11ffd5334881e92fcc46f5f6f186e9f09c7
-  "printutils.png:"	8b172356a73af0170b99a56fe4d2e14369a556ae
+  "mtink-1.0.16.tar.gz": f838c746ab88297b5e01e347fa958a44d622ff86

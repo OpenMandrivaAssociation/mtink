@@ -1,0 +1,73 @@
+#!/bin/bash
+
+#set -x
+
+#
+# mtinkd	This shell script takes care of starting and stopping mtinkd.
+#
+# chkconfig: 2345 14 61
+# description:	The MTink daemon allows printing on Epson inkjets \
+#		in packet mode. This way simultaneas printing and \
+#		ink level readout or scanning (on multi-function devices) \
+#		is possible.
+# probe: false
+# processname: mtinkd
+# pidfile: /var/run/mtink/mtinkd.pid
+# config: /etc/sysconfig/mtinkd
+
+### BEGIN INIT INFO
+# Provides: mtinkd
+# Required-Start: $network
+# Required-Stop: $network
+# Default-Start: 2 3 4 5
+# Short-Description: The MTink daemon allows printing on Epson inkjets in packet mode.
+# Description:	The MTink daemon allows printing on Epson inkjets \
+#		in packet mode. This way simultaneas printing and \
+#		ink level readout or scanning (on multi-function devices) \
+#		is possible.
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+[ -f /etc/sysconfig/mtinkd ] && . /etc/sysconfig/mtinkd
+
+# See how we were called.
+case "$1" in
+start)
+	echo -n "Starting mtinkd: "
+	/usr/sbin/mtinkd start \
+	${MTINKD_DEV_FILE:-"-dev /dev/usb/lp0"} \
+	${MTINKD_SPEC:-"-name $MTINKD_NAME -usbbase /dev/usb/lp"} && success "startup" || failure "startup"
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch /var/lock/subsys/mtinkd
+	echo
+	;;
+stop)
+	echo -n "Stopping mtinkd: "
+	/usr/sbin/mtinkd stop \
+	${MTINKD_DEV_FILE:-"-dev /dev/usb/lp0"} \
+	${MTINKD_SPEC:-"-name $MTINKD_NAME -usbbase /dev/usb/lp"}
+	RETVAL=$?
+	[ $RETVAL = 0 ] && success "stop" || failure "stop"
+	[ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/mtinkd
+	echo
+	;;
+status)
+	status mtinkd
+	RETVAL=$?
+	;;
+restart|reload)
+	$0 stop
+	$0 start
+	RETVAL=$?
+	;;
+condrestart)
+	[ -f /var/lock/subsys/mtinkd ] && $0 restart
+	;;
+  *)
+	echo "Usage: mtinkd {start|stop|status|restart|condrestart|reload}"
+	exit 1
+esac
+
+exit $RETVAL
