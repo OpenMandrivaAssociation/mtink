@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.16
-Release:	%mkrel 6
+Release:	7
 License:	GPL
 Group:		System/Printing
 URL:		http://xwtools.automatix.de/files/
@@ -24,7 +24,6 @@ Requires(post): rpm-helper
 Requires(preun): rpm-helper
 Conflicts:	printer-utils = 2007
 Conflicts:	cups-drivers = 2007
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Mtink is a status monitor which allow to get the remaining ink quantity,
