@@ -1,7 +1,7 @@
 Summary:	Status monitor and configuration tool for Epson inkjet printers
 Name:		mtink
 Version:	1.0.16
-Release:	9
+Release:	10
 License:	GPLv2
 Group:		System/Printing
 Url:		http://xwtools.automatix.de/files/
