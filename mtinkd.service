@@ -1,0 +1,16 @@
+[Unit]
+Description=This shell script takes care of starting and stopping mtinkd
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/echo -n "Starting mtinkd: "
+ExecStart=/usr/sbin/mtinkd start
+ExecStart=/bin/touch /var/lock/subsys/mtinkd
+
+ExecStop=/bin/echo -n "Stopping mtinkd: "
+ExecStop=/usr/sbin/mtinkd stop
+ExecStop=/bin/rm -f /var/lock/subsys/mtinkd
+
+[Install]
+WantedBy=multi-user.target
