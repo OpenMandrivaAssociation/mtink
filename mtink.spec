@@ -4,7 +4,7 @@ Version:	1.0.16
 Release:	13
 License:	GPL
 Group:		System/Printing
-URL:		http://xwtools.automatix.de/files/
+URL:		https://xwtools.automatix.de/files/
 Source0:	http://xwtools.automatix.de/files/%{name}-%{version}.tar.gz
 Source1:	mtinkd.service
 Source2:	mtinkd.sysconfig
