@@ -15,6 +15,7 @@ Source5:        epson.png
 Patch0:		mtink-1.0.14-ru_font.patch
 Patch1:		mtink-fhs_fixes.diff
 Patch2:		mtink-path_to_printer.desc.diff
+BuildRequires:	make
 BuildRequires:	gimp-devel
 BuildRequires:	pkgconfig(x11)
 BuildRequires:	lesstif-devel
